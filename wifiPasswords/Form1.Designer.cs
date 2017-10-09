@@ -28,23 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.getWifis = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.SSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Authentication = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KEY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sync = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // getWifis
             // 
-            this.button1.Location = new System.Drawing.Point(12, 266);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.getWifis.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("getWifis.BackgroundImage")));
+            this.getWifis.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.getWifis.Location = new System.Drawing.Point(12, 266);
+            this.getWifis.Name = "getWifis";
+            this.getWifis.Size = new System.Drawing.Size(33, 31);
+            this.getWifis.TabIndex = 0;
+            this.getWifis.UseVisualStyleBackColor = true;
+            this.getWifis.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 
@@ -79,13 +82,25 @@
             this.KEY.Name = "KEY";
             this.KEY.ReadOnly = true;
             // 
+            // sync
+            // 
+            this.sync.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("sync.BackgroundImage")));
+            this.sync.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.sync.Location = new System.Drawing.Point(51, 266);
+            this.sync.Name = "sync";
+            this.sync.Size = new System.Drawing.Size(33, 31);
+            this.sync.TabIndex = 2;
+            this.sync.UseVisualStyleBackColor = true;
+            this.sync.Click += new System.EventHandler(this.sync_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(369, 301);
+            this.Controls.Add(this.sync);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.getWifis);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -95,11 +110,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button getWifis;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn SSID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Authentication;
         private System.Windows.Forms.DataGridViewTextBoxColumn KEY;
+        private System.Windows.Forms.Button sync;
     }
 }
 
