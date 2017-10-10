@@ -60,14 +60,13 @@ namespace wifiPasswords
                     type = xmlnode[0].ChildNodes.Item(0).InnerText.Trim();
                     
                 }
-                Connection(name, type, pw);
                 dataGridView1.Rows.Add(name,type, pw);
                 fs.Close();
             }
             
         }
 
-        public void Connection(string ssid, string auth, string pw)
+        public void Connection(string ssid, string auth, string pw, DateTime date)
         {
 
             string connectionString = "server=localhost;user=root;database=wifipw;port=3306;password=";
@@ -77,7 +76,7 @@ namespace wifiPasswords
             {
                 conn.Open();
 
-                string sql = "INSERT INTO networks (ssid, authentication, password) VALUES('" + ssid + "','" + auth + "','" + pw + "')";
+                string sql = "INSERT INTO networks (ssid, authentication, password, created_at, updated_at) VALUES('" + ssid + "','" + auth + "','" + pw + "','"+date.ToString()+"','"+date.ToString()+"')";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
@@ -87,6 +86,19 @@ namespace wifiPasswords
             }
             conn.Close();
             Console.WriteLine("Added 1 row.");
+        }
+
+        private void sync_Click(object sender, EventArgs e)
+        {
+            DateTime date = DateTime.Now;
+            
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                string name = dataGridView1.Rows[i].Cells[0].Value.ToString();
+                string type = dataGridView1.Rows[i].Cells[1].Value.ToString();
+                string pw = dataGridView1.Rows[i].Cells[2].Value.ToString();
+                Connection(name, type, pw, date);
+            }
         }
     }
 }
