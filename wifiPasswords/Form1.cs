@@ -66,7 +66,7 @@ namespace wifiPasswords
             
         }
 
-        public void Connection(string ssid, string auth, string pw, DateTime date)
+        public void addRow(string ssid, string auth, string pw, DateTime date)
         {
 
             string connectionString = "server=localhost;user=root;database=wifipw;port=3306;password=";
@@ -97,8 +97,42 @@ namespace wifiPasswords
                 string name = dataGridView1.Rows[i].Cells[0].Value.ToString();
                 string type = dataGridView1.Rows[i].Cells[1].Value.ToString();
                 string pw = dataGridView1.Rows[i].Cells[2].Value.ToString();
-                Connection(name, type, pw, date);
+                addRow(name, type, pw, date);
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            getAllWifis();
+        }
+
+        private void getAllWifis()
+        {
+
+            string connectionString = "server=localhost;user=root;database=wifipw;port=3306;password=";
+            MySqlConnection conn = new MySqlConnection(connectionString);
+
+            try
+            {
+                conn.Open();
+
+                string sql = "SELECT ssid, authentication, password FROM networks";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        dataGridViewAllWifis.Rows.Add(reader["ssid"], reader["authentication"], reader["password"]);
+                       
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            conn.Close();
+        }
+    
     }
 }

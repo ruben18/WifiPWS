@@ -121,7 +121,7 @@
   <data name="getWifis.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAASISURBVEhLlVXtT1NXGL//Anxe/ANINHyYyhBU1grlTV6G
+        YQUAAAAJcEhZcwAADsAAAA7AAWrWiQkAAASISURBVEhLlVXtT1NXGL//Anxe/ANINHyYyhBU1grlTV6G
         m7IthrpkmoVEkrmYLBtGPriZmHWJIcsc28hKKQKllJaX6qJoZENwaehMpG8U+v5Oixfo2/PsnMMttnBD
         3JP88jznOb/nd59z7rn3cAfZ4Su3imR/LMlbjTFl64N1U4tx3U1BY5qTqV7KKUegv72VdN0pbpoMKVqM
         Mb5lJgrEY4HPgY4Jp2k6oigjNUL5wSbpey5tmon6mmei+H9Aa2r6l6SCjLhVD1naz06FU01TYSBdIfP5
@@ -144,6 +144,15 @@
         RU5ErkJggg==
 </value>
   </data>
+  <metadata name="SSID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Authentication.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="KEY.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="SSID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -295,4 +304,13 @@
         CrEFEyIkd4p4DgV0iiJomOdk/14oQldQCYyozLc3/w+YXcFUVezZ3wAAAABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn3.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>
