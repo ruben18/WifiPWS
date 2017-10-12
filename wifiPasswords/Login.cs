@@ -28,9 +28,6 @@ namespace wifiPasswords
             password = GetMd5Hash(md5Hash, password);
             if (login(username, password) != 0)
             {
-
-               
-
                 // Create the XmlDocument.
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml("<login></login>");
@@ -53,7 +50,6 @@ namespace wifiPasswords
             }else{
                 textBoxPassword.Text = "";
                 textBoxPassword.Focus();
-
             }
         }
 
@@ -94,7 +90,6 @@ namespace wifiPasswords
                     while (reader.Read())
                     {
                         id=int.Parse(reader["id"].ToString());
-
                     }
                 }
             }

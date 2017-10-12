@@ -93,6 +93,7 @@
             // 
             this.sync.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("sync.BackgroundImage")));
             this.sync.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.sync.Enabled = false;
             this.sync.Location = new System.Drawing.Point(47, 282);
             this.sync.Name = "sync";
             this.sync.Size = new System.Drawing.Size(33, 31);
@@ -164,8 +165,11 @@
             this.Controls.Add(this.sync);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.getWifis);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.ShowIcon = false;
+            this.Text = "Wifi Passwords";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllWifis)).EndInit();

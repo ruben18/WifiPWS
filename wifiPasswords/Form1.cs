@@ -28,6 +28,13 @@ namespace wifiPasswords
          
         private void button1_Click(object sender, EventArgs e)
         {
+            System.Diagnostics.Process process=System.Diagnostics.Process.Start(Directory.GetCurrentDirectory() + @"\exportWifis.bat");
+            while (!process.HasExited)
+            {
+                
+            }
+
+            dataGridView1.Rows.Clear();
 
             filesNames = Directory.GetFiles(path, "*.xml")
                                      .Select(Path.GetFileName)
@@ -62,6 +69,10 @@ namespace wifiPasswords
                 }
                 dataGridView1.Rows.Add(name,type, pw);
                 fs.Close();
+
+                sync.Enabled = true;
+
+
             }
             
         }
