@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Security.Cryptography;
 
 using MySql.Data.MySqlClient;
 
@@ -27,11 +28,10 @@ namespace wifiPasswords
          
         private void button1_Click(object sender, EventArgs e)
         {
-           filesNames = Directory.GetFiles(path, "*.xml")
+            
+            filesNames = Directory.GetFiles(path, "*.xml")
                                      .Select(Path.GetFileName)
                                      .ToArray();
-
-
 
             foreach (string fileName in filesNames) {
                 #pragma warning disable CS0618 // Type or member is obsolete
@@ -90,7 +90,29 @@ namespace wifiPasswords
 
         private void sync_Click(object sender, EventArgs e)
         {
-            DateTime date = DateTime.Now;
+            MD5 md5Hash = MD5.Create();
+
+            // Create the XmlDocument.
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml("<login></login>");
+
+            // Add a price element.
+            XmlElement newElem = doc.CreateElement("username");
+            newElem.InnerText = "username";
+            doc.DocumentElement.AppendChild(newElem);
+            newElem = doc.CreateElement("password");
+            newElem.InnerText = GetMd5Hash(md5Hash, "123456");
+            doc.DocumentElement.AppendChild(newElem);
+
+            // Save the document to a file. White space is
+            // preserved (no white space).
+            doc.PreserveWhitespace = true;
+            doc.Save("login.xml");
+
+            Login login = new wifiPasswords.Login();
+            login.ShowDialog();
+
+            /*DateTime date = DateTime.Now;
             
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
@@ -98,7 +120,7 @@ namespace wifiPasswords
                 string type = dataGridView1.Rows[i].Cells[1].Value.ToString();
                 string pw = dataGridView1.Rows[i].Cells[2].Value.ToString();
                 addRow(name, type, pw, date);
-            }
+            }*/
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -133,6 +155,46 @@ namespace wifiPasswords
             }
             conn.Close();
         }
-    
+
+        static string GetMd5Hash(MD5 md5Hash, string input)
+        {
+
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            StringBuilder sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data 
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
+        }
+
+        // Verify a hash against a string.
+        static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
+        {
+            // Hash the input.
+            string hashOfInput = GetMd5Hash(md5Hash, input);
+
+            // Create a StringComparer an compare the hashes.
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+
+            if (0 == comparer.Compare(hashOfInput, hash))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }
