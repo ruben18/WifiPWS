@@ -22,24 +22,39 @@ namespace wifiPasswords
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string username = textBoxUsername.Text;
+            string password = textBoxPassword.Text;
             MD5 md5Hash = MD5.Create();
+            password = GetMd5Hash(md5Hash, password);
+            if (login(username, password) != 0)
+            {
 
-            // Create the XmlDocument.
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml("<login></login>");
+               
 
-            // Add a price element.
-            XmlElement newElem = doc.CreateElement("username");
-            newElem.InnerText = "username";
-            doc.DocumentElement.AppendChild(newElem);
-            newElem = doc.CreateElement("password");
-            newElem.InnerText = GetMd5Hash(md5Hash, "123456");
-            doc.DocumentElement.AppendChild(newElem);
+                // Create the XmlDocument.
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml("<login></login>");
 
-            // Save the document to a file. White space is
-            // preserved (no white space).
-            doc.PreserveWhitespace = true;
-            doc.Save("login.xml");
+                // Add a price element.
+                XmlElement newElem = doc.CreateElement("username");
+                newElem.InnerText = username;
+                doc.DocumentElement.AppendChild(newElem);
+                newElem = doc.CreateElement("password");
+                newElem.InnerText = password;
+                doc.DocumentElement.AppendChild(newElem);
+
+                // Save the document to a file. White space is
+                // preserved (no white space).
+                doc.PreserveWhitespace = true;
+                doc.Save("login.xml");
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }else{
+                textBoxPassword.Text = "";
+                textBoxPassword.Focus();
+
+            }
         }
 
         static string GetMd5Hash(MD5 md5Hash, string input)

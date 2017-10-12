@@ -66,7 +66,7 @@ namespace wifiPasswords
             
         }
 
-        public void addRow(string ssid, string auth, string pw, DateTime date)
+        public void addRow(string ssid, string auth, string pw, DateTime date, int idUser)
         {
 
             string connectionString = "server=localhost;user=root;database=wifipw;port=3306;password=";
@@ -76,7 +76,7 @@ namespace wifiPasswords
             {
                 conn.Open();
 
-                string sql = "INSERT INTO networks (ssid, authentication, password, created_at, updated_at) VALUES('" + ssid + "','" + auth + "','" + pw + "','"+date.ToString()+"','"+date.ToString()+"')";
+                string sql = "INSERT INTO networks (ssid, authentication, password, idUSer, created_at, updated_at) VALUES('" + ssid + "','" + auth + "','" + pw + "','"+idUser+"','"+date.ToString()+"','"+date.ToString()+"')";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
@@ -117,18 +117,21 @@ namespace wifiPasswords
                 Login loginClass = new wifiPasswords.Login();
                 idUser = loginClass.login(username, password);
 
-                //VERIFICAR AS WIFIS JÁ INSERIDAS
+                if (idUser != 0)
+                {                   
+                    DateTime date = DateTime.Now;
 
-                /*DateTime date = DateTime.Now;
-
-               for (int i = 0; i < dataGridView1.Rows.Count; i++)
-               {
-                   string name = dataGridView1.Rows[i].Cells[0].Value.ToString();
-                   string type = dataGridView1.Rows[i].Cells[1].Value.ToString();
-                   string pw = dataGridView1.Rows[i].Cells[2].Value.ToString();
-                   addRow(name, type, pw, date);
-               }*/
-
+                   for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                   {
+                        string name = dataGridView1.Rows[i].Cells[0].Value.ToString();
+                        string type = dataGridView1.Rows[i].Cells[1].Value.ToString();
+                        string pw = dataGridView1.Rows[i].Cells[2].Value.ToString();
+                        if (!verifyWifiExists(name,pw,idUser))
+                        {
+                            addRow(name, type, pw, date, idUser);
+                        }
+                   }
+                }
             }
             else
             {
@@ -140,6 +143,34 @@ namespace wifiPasswords
             
 
            
+        }
+
+        private bool verifyWifiExists(string name, string pw, int idUser)
+        {
+            string connectionString = "server=localhost;user=root;database=wifipw;port=3306;password=";
+            MySqlConnection conn = new MySqlConnection(connectionString);
+
+            try
+            {
+                conn.Open();
+
+                string sql = "SELECT id FROM networks WHERE ssid='"+name+"' AND password='"+pw+"' AND idUser='"+idUser+"'";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            conn.Close();
+
+            return false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
